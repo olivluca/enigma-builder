@@ -1,0 +1,60 @@
+name: build enigma
+
+on:
+  workflow_dispatch:
+
+jobs:
+   build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Install prerequisite
+      run: |
+        sudo apt-get -q update
+        sudo apt-get install -y autoconf automake bison bzip2 chrpath coreutils cpio curl cvs debianutils default-jre default-jre-headless diffstat flex g++ gawk gcc  gcc-multilib g++-multilib gettext git git-core gzip help2man info iputils-ping java-common libc6-dev libegl1-mesa libglib2.0-dev libncurses5-dev libperl4-corelibs-perl libproc-processtable-perl libsdl1.2-dev libserf-dev libtool libxml2-utils make ncurses-bin patch perl pkg-config psmisc python3 python3-git python3-jinja2 python3-pexpect python3-pip python-setuptools qemu quilt socat sshpass subversion tar texi2html texinfo unzip wget xsltproc xterm xz-utils zip zlib1g-dev zstd lz4
+        sudo apt-get install -y python-is-python3
+        
+    - name: Checkout
+      run: git clone https://github.com/oe-alliance/build-enviroment.git -b 5.0
+  
+    - name: Cache last build
+      uses: actions/cache@v2
+      with:
+        path: |
+          build-environment/builds/
+          build-environment/sources/
+        key: enigmacache-${{ github.run_number }}
+        restore-keys: enigmacache-
+      
+    - name: Update build environment
+      run: |
+        cd build-environment
+        make update
+      
+    - name: Init build system
+      env: 
+        MACHINE: ustym4kpro
+        DISTRO: openatv
+        DISTRO_TYPE: release
+      run: |
+        cd build-environment
+        rm builds/openatv/release/ustym4kpro/conf/site.conf
+        make init
+      
+    - name: Use my enigma2
+      run: |
+        cd build-environment
+        sed -i -e 's#github.com/openatv/enigma2#github.com/olivluca/enigma2#g' meta-oe-alliance/meta-oe/conf/distro/openatv.conf  
+      
+    - name: Build enigma2 package
+      run: |
+        cd build-environment/builds/openatv/release/ustym4kpro
+        source env.source
+        bitbake enigma2
+        
+    - uses: actions/Upload-artifact@v2
+      with:
+        name: packages
+        path: build-environment/builds/openatv/release/ustym4kpro/tmp/deploy/ipk/ustym4kpro/
+        
