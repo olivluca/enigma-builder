@@ -11,6 +11,7 @@ jobs:
 
     - name: Checkout
       run: | 
+        cd ~
         git clone https://github.com/oe-alliance/build-enviroment.git -b 5.0
         pwd
         ls
@@ -25,8 +26,8 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          build-environment/builds/
-          build-environment/sources/
+          ~/build-environment/builds/
+          ~/build-environment/sources/
         key: enigmacache-${{ github.run_number }}
         restore-keys: enigmacache-
       
@@ -59,5 +60,5 @@ jobs:
     - uses: actions/Upload-artifact@v2
       with:
         name: packages
-        path: build-environment/builds/openatv/release/ustym4kpro/tmp/deploy/ipk/ustym4kpro/
+        path: ~/build-environment/builds/openatv/release/ustym4kpro/tmp/deploy/ipk/ustym4kpro/
         
