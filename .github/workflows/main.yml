@@ -26,14 +26,14 @@ jobs:
       uses: actions/cache@v2
       with:
         path: |
-          ~/build-environment/builds/
-          ~/build-environment/sources/
+          ~/build-enviroment/builds/
+          ~/build-enviroment/sources/
         key: enigmacache-${{ github.run_number }}
         restore-keys: enigmacache-
       
     - name: Update build environment
       run: |
-        cd ~/build-environment
+        cd ~/build-enviroment
         make update
       
     - name: Init build system
@@ -42,23 +42,23 @@ jobs:
         DISTRO: openatv
         DISTRO_TYPE: release
       run: |
-        cd ~/build-environment
+        cd ~/build-enviroment
         rm builds/openatv/release/ustym4kpro/conf/site.conf
         make init
       
     - name: Use my enigma2
       run: |
-        cd ~/build-environment
+        cd ~/build-enviroment
         sed -i -e 's#github.com/openatv/enigma2#github.com/olivluca/enigma2#g' meta-oe-alliance/meta-oe/conf/distro/openatv.conf  
       
     - name: Build enigma2 package
       run: |
-        cd ~/build-environment/builds/openatv/release/ustym4kpro
+        cd ~/build-enviroment/builds/openatv/release/ustym4kpro
         source env.source
         bitbake enigma2
         
     - uses: actions/Upload-artifact@v2
       with:
         name: packages
-        path: ~/build-environment/builds/openatv/release/ustym4kpro/tmp/deploy/ipk/ustym4kpro/
+        path: ~/build-enviroment/builds/openatv/release/ustym4kpro/tmp/deploy/ipk/ustym4kpro/
         
