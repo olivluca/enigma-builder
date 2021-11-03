@@ -29,7 +29,7 @@ jobs:
       
     - name: Update build environment
       run: |
-        cd build-environment
+        cd ~/build-environment
         make update
       
     - name: Init build system
@@ -38,18 +38,18 @@ jobs:
         DISTRO: openatv
         DISTRO_TYPE: release
       run: |
-        cd build-environment
+        cd ~/build-environment
         rm builds/openatv/release/ustym4kpro/conf/site.conf
         make init
       
     - name: Use my enigma2
       run: |
-        cd build-environment
+        cd ~/build-environment
         sed -i -e 's#github.com/openatv/enigma2#github.com/olivluca/enigma2#g' meta-oe-alliance/meta-oe/conf/distro/openatv.conf  
       
     - name: Build enigma2 package
       run: |
-        cd build-environment/builds/openatv/release/ustym4kpro
+        cd ~/build-environment/builds/openatv/release/ustym4kpro
         source env.source
         bitbake enigma2
         
