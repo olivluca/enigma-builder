@@ -43,7 +43,7 @@ jobs:
         DISTRO_TYPE: release
       run: |
         cd ~/build-enviroment
-        rm builds/openatv/release/ustym4kpro/conf/site.conf
+        rm -f builds/openatv/release/ustym4kpro/conf/site.conf
         make init
       
     - name: Use my enigma2
