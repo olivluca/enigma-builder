@@ -27,7 +27,7 @@ jobs:
       with:
         path: |
           ~/build-enviroment/builds/
-          ~/build-enviroment/sources/
+#          ~/build-enviroment/sources/
         key: enigmacache-${{ github.run_number }}
         restore-keys: enigmacache-
       
