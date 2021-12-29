@@ -57,7 +57,7 @@ jobs:
       run: |
         cd ~/build-enviroment/builds/openatv/release/ustym4kpro
         source env.source
-        bitbake enigma2
+        bitbake -v enigma2
         
     - uses: actions/Upload-artifact@v2
       with:
