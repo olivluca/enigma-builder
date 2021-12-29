@@ -24,14 +24,14 @@ jobs:
         cd ~
         git clone https://github.com/oe-alliance/build-enviroment.git -b 5.0
         
-    - name: Cache last build
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/build-enviroment/builds/
-#          ~/build-enviroment/sources/
-        key: enigmacache-${{ github.run_number }}
-        restore-keys: enigmacache-
+#    - name: Cache last build
+#      uses: actions/cache@v2
+#      with:
+#        path: |
+#          ~/build-enviroment/builds/
+##          ~/build-enviroment/sources/
+#        key: enigmacache-${{ github.run_number }}
+#        restore-keys: enigmacache-
       
     - name: Update build environment
       run: |
@@ -57,7 +57,7 @@ jobs:
       run: |
         cd ~/build-enviroment/builds/openatv/release/ustym4kpro
         source env.source
-        bitbake -v enigma2
+        bitbake enigma2
         
     - uses: actions/Upload-artifact@v2
       with:
