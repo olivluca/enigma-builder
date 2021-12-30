@@ -40,7 +40,7 @@ jobs:
         restore-keys: enigmacache-
     
     - name: Clear cache
-      if: ${{ github.event.inputs.clearcache == 'yes' }}
+#      if: ${{ github.event.inputs.clearcache == 'yes' }}
       run: rm -vrf ~/build-environment
       
     - name: Update build environment
