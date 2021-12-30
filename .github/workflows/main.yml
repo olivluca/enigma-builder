@@ -2,6 +2,12 @@ name: build enigma
 
 on:
   workflow_dispatch:
+    inputs:
+      clearcache:
+        description: "Clear build cache"
+        required: false
+        default: "no"
+        
   schedule:
     # keep the cache around
     - cron: 13 4 * * 2,5
@@ -24,14 +30,18 @@ jobs:
         cd ~
         git clone https://github.com/oe-alliance/build-enviroment.git -b 5.0
         
-#    - name: Cache last build
-#      uses: actions/cache@v2
-#      with:
-#        path: |
-#          ~/build-enviroment/builds/
-##          ~/build-enviroment/sources/
-#        key: enigmacache-${{ github.run_number }}
-#        restore-keys: enigmacache-
+    - name: Cache last build
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/build-enviroment/builds/
+#          ~/build-enviroment/sources/
+        key: enigmacache-${{ github.run_number }}
+        restore-keys: enigmacache-
+    
+    - name: Clear cache
+      if: ${{ github.event.inputs.clearcache == 'yes' }}
+      run: rm -rf ~/build-environment/builds/
       
     - name: Update build environment
       run: |
