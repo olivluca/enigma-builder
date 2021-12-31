@@ -40,12 +40,12 @@ jobs:
         restore-keys: enigmacache-
     
     - name: Clear cache
-#      if: ${{ github.event.inputs.clearcache == 'yes' }}
+      if: ${{ github.event.inputs.clearcache == 'yes' }}
       run: |
         cd ~
         echo "============= before =============="
         ls -lr
-        rm -rf build-environment
+        rm -rf build-enviroment
         echo "============= after  =============="
         ls -lr
       
