@@ -41,7 +41,13 @@ jobs:
     
     - name: Clear cache
 #      if: ${{ github.event.inputs.clearcache == 'yes' }}
-      run: rm -vrf ~/build-environment
+      run: |
+        cd ~
+        echo "============= before =============="
+        ls -lr
+        rm -rf build-environment
+        echo "============= after  =============="
+        ls -lr
       
     - name: Update build environment
       run: |
