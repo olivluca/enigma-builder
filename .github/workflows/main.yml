@@ -63,11 +63,12 @@ jobs:
         cd ~/build-enviroment
         rm -f builds/openatv/release/ustym4kpro/conf/site.conf
         make init
-      
-    - name: Use my enigma2
-      run: |
-        cd ~/build-enviroment
-        sed -i -e 's#github.com/openatv/enigma2#github.com/olivluca/enigma2#g' meta-oe-alliance/meta-oe/conf/distro/openatv.conf  
+
+# Upstream enigma2 has already been patched for rotor external
+#    - name: Use my enigma2
+#      run: |
+#        cd ~/build-enviroment
+#        sed -i -e 's#github.com/openatv/enigma2#github.com/olivluca/enigma2#g' meta-oe-alliance/meta-oe/conf/distro/openatv.conf  
       
     - name: Build enigma2 package
       run: |
