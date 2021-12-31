@@ -42,10 +42,10 @@ jobs:
     - name: Clear cache
       if: ${{ github.event.inputs.clearcache == 'yes' }}
       run: |
-        cd ~
+        cd ~/build-enviroment
         echo "============= before =============="
         ls -lr
-        rm -rf build-enviroment
+        rm -rf builds
         echo "============= after  =============="
         ls -lr
       
